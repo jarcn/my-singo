@@ -14,7 +14,7 @@ paths:
           description: ""
       summary: 状态检查页面
       tags:
-      - 系统探活接口
+      - 探活接口
   /user/login:
     post:
       description: 用户登陆接口

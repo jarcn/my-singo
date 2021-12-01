@@ -27,7 +27,7 @@ var doc = `{
             "get": {
                 "description": "系统状态检查",
                 "tags": [
-                    "系统探活接口"
+                    "探活接口"
                 ],
                 "summary": "状态检查页面",
                 "responses": {

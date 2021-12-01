@@ -14,7 +14,7 @@ import (
 // Ping 状态检查页面
 // @Summary 状态检查页面
 // @Description 系统状态检查
-// @Tags 系统探活接口
+// @Tags 探活接口
 // @Success 200
 // @Router /ping [get]
 func Ping(c *gin.Context) {
