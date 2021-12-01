@@ -1,11 +1,11 @@
 package server
 
 import (
+	"my-singo/api"
+	"my-singo/middleware"
 	"os"
-	"singo/api"
-	"singo/middleware"
 
-	_ "singo/docs"
+	_ "my-singo/docs"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"

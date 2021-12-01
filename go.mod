@@ -1,4 +1,4 @@
-module singo
+module my-singo
 
 go 1.17
 

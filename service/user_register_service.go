@@ -1,8 +1,8 @@
 package service
 
 import (
-	"singo/model"
-	"singo/serializer"
+	"my-singo/model"
+	"my-singo/serializer"
 )
 
 // UserRegisterService 管理用户注册服务

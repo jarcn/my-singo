@@ -1,8 +1,8 @@
 package cache
 
 import (
+	"my-singo/util"
 	"os"
-	"singo/util"
 	"strconv"
 
 	"github.com/go-redis/redis"

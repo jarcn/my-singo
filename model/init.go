@@ -2,8 +2,8 @@ package model
 
 import (
 	"log"
+	"my-singo/util"
 	"os"
-	"singo/util"
 	"time"
 
 	"gorm.io/driver/mysql"

@@ -1,9 +1,9 @@
 package main
 
 import (
+	"my-singo/conf"
+	"my-singo/server"
 	"os"
-	"singo/conf"
-	"singo/server"
 )
 
 // @title 陈佳实验项目
