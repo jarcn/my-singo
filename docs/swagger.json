@@ -1,0 +1,129 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "陈佳实验项目接口文档",
+        "title": "陈佳实验项目",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/ping": {
+            "get": {
+                "description": "系统状态检查",
+                "tags": [
+                    "系统探活接口"
+                ],
+                "summary": "状态检查页面",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "description": "用户登陆接口",
+                "tags": [
+                    "用户接口"
+                ],
+                "summary": "用户登陆",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "姓名",
+                        "name": "user_name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/logout": {
+            "delete": {
+                "description": "用户登出接口",
+                "tags": [
+                    "用户接口"
+                ],
+                "summary": "用户登出",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/me": {
+            "get": {
+                "description": "用户详情接口",
+                "tags": [
+                    "用户接口"
+                ],
+                "summary": "用户详情",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/register": {
+            "post": {
+                "description": "用户注册接口",
+                "tags": [
+                    "用户接口"
+                ],
+                "summary": "用户注册",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "昵称",
+                        "name": "nickname",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "姓名",
+                        "name": "user_name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "再次确认密码",
+                        "name": "password_confirm",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        }
+    }
+}

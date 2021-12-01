@@ -1,0 +1,86 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact: {}
+  description: 陈佳实验项目接口文档
+  title: 陈佳实验项目
+  version: "1.0"
+paths:
+  /ping:
+    get:
+      description: 系统状态检查
+      responses:
+        "200":
+          description: ""
+      summary: 状态检查页面
+      tags:
+      - 系统探活接口
+  /user/login:
+    post:
+      description: 用户登陆接口
+      parameters:
+      - description: 姓名
+        in: formData
+        name: user_name
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+      summary: 用户登陆
+      tags:
+      - 用户接口
+  /user/logout:
+    delete:
+      description: 用户登出接口
+      responses:
+        "200":
+          description: ""
+      summary: 用户登出
+      tags:
+      - 用户接口
+  /user/me:
+    get:
+      description: 用户详情接口
+      responses:
+        "200":
+          description: ""
+      summary: 用户详情
+      tags:
+      - 用户接口
+  /user/register:
+    post:
+      description: 用户注册接口
+      parameters:
+      - description: 昵称
+        in: formData
+        name: nickname
+        required: true
+        type: string
+      - description: 姓名
+        in: formData
+        name: user_name
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      - description: 再次确认密码
+        in: formData
+        name: password_confirm
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+      summary: 用户注册
+      tags:
+      - 用户接口
+swagger: "2.0"
