@@ -12,6 +12,6 @@ func TestChain(t *testing.T) {
 	chain.AddHandler(&handlers.InboxHandler{})
 	chain.AddHandler(&handlers.PushHandler{})
 	chain.AddHandler(&handlers.SnackBarHandler{})
-	chain.Handler(req.MqNoticeMsgRequest{})
+	chain.Handler(&req.MqNoticeMsgRequest{})
 	time.Sleep(time.Second * 1)
 }

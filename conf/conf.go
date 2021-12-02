@@ -26,5 +26,6 @@ func Init() {
 	// 连接redis
 	cache.Redis()
 	// 初始化kafka(分区指定为0号有问题)
-	go process.StartConsumer(strings.Split(os.Getenv("KAFKA_ADDR"), ","), os.Getenv("KAFKA_TOPIC"), 0)
+	brokers := strings.Split(os.Getenv("KAFKA_ADDR"), ",")
+	go process.StartConsumer(brokers, os.Getenv("KAFKA_TOPIC"), 0)
 }
