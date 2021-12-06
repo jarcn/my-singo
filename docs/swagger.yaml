@@ -6,6 +6,15 @@ info:
   title: 陈佳实验项目
   version: "1.0"
 paths:
+  /lan:
+    get:
+      description: 国际化测试
+      responses:
+        "200":
+          description: ""
+      summary: 国际化
+      tags:
+      - 国际化测试接口
   /ping:
     get:
       description: 系统状态检查

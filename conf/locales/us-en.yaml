@@ -1,0 +1,10 @@
+Tag:
+  required: "required"
+  min: "min"
+  max: "max"
+Field:
+  Name: "Name"
+  Nickname: "Nickname"
+  UserName: "UserName"
+  Password: "Password"
+  PasswordConfirm: "PasswordConfirm"

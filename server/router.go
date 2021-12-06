@@ -28,6 +28,9 @@ func NewRouter() *gin.Engine {
 	// 路由
 	v1 := r.Group("/api/v1")
 	{
+		//根据客户端请求语言国际化
+		v1.GET("lan", api.LanTest)
+
 		// 服务探活
 		v1.GET("ping", api.Ping)
 
