@@ -7,9 +7,10 @@ import (
 	"my-singo/middleware"
 	"my-singo/model"
 	"my-singo/serializer"
+	"strings"
 
 	"github.com/gin-gonic/gin"
-	validator "gopkg.in/go-playground/validator.v8"
+	validator "github.com/go-playground/validator/v10"
 )
 
 // Ping 状态检查页面
@@ -39,9 +40,9 @@ func CurrentUser(c *gin.Context) *model.User {
 func ErrorResponse(err error) serializer.Response {
 	if ve, ok := err.(validator.ValidationErrors); ok {
 		for _, e := range ve {
-			field := conf.Message(middleware.Language, fmt.Sprintf("Field.%s", e.Field))
-			tag := conf.Message(middleware.Language, fmt.Sprintf("Tag.Valid.%s", e.Tag))
-			return serializer.ParamErr(fmt.Sprintf("%s%s", field, tag), err)
+			field := conf.Message(middleware.Language, fmt.Sprintf("Field.%s", strings.Split(e.Namespace(), ".")[1]))
+			tag := conf.Message(middleware.Language, fmt.Sprintf("Tag.Valid.%s", e.Tag()))
+			return serializer.ParamErr(fmt.Sprintf("%s %s", field, tag), err)
 		}
 	}
 	if _, ok := err.(*json.UnmarshalTypeError); ok {
