@@ -33,7 +33,7 @@ func StartConsumer(brokenAddr []string, topic string, partition int32) {
 			return
 		}
 	}()
-	partitionConsumer, err := consumer.ConsumePartition(topic, partition, sarama.OffsetOldest)
+	partitionConsumer, err := consumer.ConsumePartition(topic, partition, sarama.OffsetNewest)
 	if err != nil {
 		log.Printf("kafka consumer init. Error: %s", err.Error())
 		return
