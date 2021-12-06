@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"my-singo/conf"
+	"my-singo/middleware"
 	"my-singo/model"
 	"my-singo/serializer"
 
@@ -38,8 +39,8 @@ func CurrentUser(c *gin.Context) *model.User {
 func ErrorResponse(err error) serializer.Response {
 	if ve, ok := err.(validator.ValidationErrors); ok {
 		for _, e := range ve {
-			field := conf.T(fmt.Sprintf("Field.%s", e.Field))
-			tag := conf.T(fmt.Sprintf("Tag.Valid.%s", e.Tag))
+			field := conf.Message(middleware.Language, fmt.Sprintf("Field.%s", e.Field))
+			tag := conf.Message(middleware.Language, fmt.Sprintf("Tag.Valid.%s", e.Tag))
 			return serializer.ParamErr(fmt.Sprintf("%s%s", field, tag), err)
 		}
 	}

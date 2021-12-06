@@ -2,8 +2,8 @@ package api
 
 import (
 	"my-singo/conf"
+	"my-singo/middleware"
 	"my-singo/serializer"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,17 +15,9 @@ import (
 // @Success 200
 // @Router /lan [get]
 func LanTest(c *gin.Context) {
-	recover()
-	lan := convertLan(c.GetHeader("Accept-Language"))
-	msg := conf.Message(lan, "Tag.required")
+	msg := conf.Message(middleware.Language, "Tag.required")
 	c.JSON(200, serializer.Response{
 		Code: 0,
 		Msg:  msg,
 	})
-}
-
-func convertLan(lan string) string {
-	str := strings.Split(lan, ",")
-	return strings.Split(str[0], "-")[0]
-
 }

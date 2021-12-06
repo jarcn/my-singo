@@ -12,7 +12,7 @@ import (
 
 var processChain *chain.MsgHandlerChain
 
-//初始化责任链
+// 初始化责任链
 func init() {
 	chain := &chain.MsgHandlerChain{}
 	chain.AddHandler(&handlers.InboxHandler{})
@@ -21,6 +21,7 @@ func init() {
 	processChain = chain
 }
 
+// 启动kafka消费者
 func StartConsumer(brokenAddr []string, topic string, partition int32) {
 	consumer, err := sarama.NewConsumer(brokenAddr, nil)
 	if err != nil {
