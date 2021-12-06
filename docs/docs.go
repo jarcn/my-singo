@@ -23,20 +23,6 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/lan": {
-            "get": {
-                "description": "国际化测试",
-                "tags": [
-                    "国际化测试接口"
-                ],
-                "summary": "国际化",
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
         "/ping": {
             "get": {
                 "description": "系统状态检查",
