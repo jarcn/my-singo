@@ -1,8 +1,12 @@
 package service
 
 import (
+	"my-singo/conf"
+	"my-singo/middleware"
 	"my-singo/model"
 	"my-singo/serializer"
+	"my-singo/util"
+	"net/http"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -27,15 +31,28 @@ func (service *UserLoginService) Login(c *gin.Context) serializer.Response {
 	var user model.User
 
 	if err := model.DB.Where("user_name = ?", service.UserName).First(&user).Error; err != nil {
-		return serializer.ParamErr("账号或密码错误", nil)
+		return serializer.ParamErr(conf.Message(middleware.Language, "UserName.Error"), nil)
 	}
 
-	if user.CheckPassword(service.Password) == false {
-		return serializer.ParamErr("账号或密码错误", nil)
+	if !user.CheckPassword(service.Password) {
+		return serializer.ParamErr(conf.Message(middleware.Language, "Password.Error"), nil)
 	}
 
+	tokenUser := util.User{
+		UserName: service.UserName,
+		PassWrod: service.Password,
+	}
+
+	//生成token
+	token, err := util.GenToken(tokenUser)
+	if err != nil {
+		return serializer.Err(serializer.CodeSystemErr, conf.Message(middleware.Language, "System.Error"), nil)
+	}
 	// 设置session
-	service.setSession(c, user)
-
-	return serializer.BuildUserResponse(user)
+	// service.setSession(c, user)
+	return serializer.Response{
+		Code: http.StatusOK,
+		Data: gin.H{"token": token},
+		Msg:  conf.Message(middleware.Language, "Login.Success"),
+	}
 }

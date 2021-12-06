@@ -1,39 +1,44 @@
 package middleware
 
 import (
-	"my-singo/model"
 	"my-singo/serializer"
+	"my-singo/util"
+	"net/http"
+	"strings"
 
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
-// CurrentUser 获取登录用户
-func CurrentUser() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		session := sessions.Default(c)
-		uid := session.Get("user_id")
-		if uid != nil {
-			user, err := model.GetUser(uid)
-			if err == nil {
-				c.Set("user", &user)
-			}
+// JWTAuth 中间件，检查token
+func JWTAuth() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		authHeader := ctx.Request.Header.Get("Authorization")
+		if authHeader == "" {
+			ctx.JSON(http.StatusOK, serializer.CheckLogin())
+			ctx.Abort() //结束后续操作
+			return
 		}
-		c.Next()
-	}
-}
+		util.Log().Info("token:", authHeader)
 
-// AuthRequired 需要登录
-func AuthRequired() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		if user, _ := c.Get("user"); user != nil {
-			if _, ok := user.(*model.User); ok {
-				c.Next()
-				return
-			}
+		//按空格拆分
+		parts := strings.SplitN(authHeader, " ", 2)
+		if !(len(parts) == 2 && parts[0] == "Bearer") {
+			ctx.JSON(http.StatusOK, serializer.CheckLogin())
+			ctx.Abort()
+			return
 		}
 
-		c.JSON(200, serializer.CheckLogin())
-		c.Abort()
+		//解析token包含的信息
+		claims, err := util.ParseToken(parts[1])
+		if err != nil {
+			ctx.JSON(http.StatusOK, serializer.CheckLogin())
+			ctx.Abort()
+			return
+		}
+
+		// 将当前请求的claims信息保存到请求的上下文c上
+		ctx.Set("claims", claims)
+		ctx.Next() // 后续的处理函数可以用过ctx.Get("claims")来获取当前请求的用户信息
+
 	}
 }

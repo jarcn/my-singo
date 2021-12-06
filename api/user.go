@@ -65,6 +65,8 @@ func UserMe(c *gin.Context) {
 // @Success 200
 // @Router /user/logout [delete]
 func UserLogout(c *gin.Context) {
+	// todo token 失效问题需要解决, 将token 存入 redis
+	// todo 用户退出登陆时将 token 加入黑名单
 	s := sessions.Default(c)
 	s.Clear()
 	s.Save()

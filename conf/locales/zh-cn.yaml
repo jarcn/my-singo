@@ -1,5 +1,5 @@
 Tag:
-  required: "必须存在，而且不能为空"  
+  required: "必须存在，而且不能为空"
   min: "不够长"
   max: "太长"
 Field:
@@ -8,4 +8,7 @@ Field:
   UserName: "用户名"
   Password: "密码"
   PasswordConfirm: "密码校验"
-  
+Login:
+  Success: "成功"
+System:
+  Error: "系统错误请稍后再试!!!"

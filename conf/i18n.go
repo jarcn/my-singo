@@ -51,9 +51,9 @@ func Message(lan, key string) string {
 					}
 				}
 			} else {
-				return ""
+				return key
 			}
 		}
 	}
-	return ""
+	return key
 }

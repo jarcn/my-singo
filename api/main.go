@@ -7,6 +7,7 @@ import (
 	"my-singo/middleware"
 	"my-singo/model"
 	"my-singo/serializer"
+	"my-singo/util"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -28,9 +29,11 @@ func Ping(c *gin.Context) {
 
 // CurrentUser 获取当前用户
 func CurrentUser(c *gin.Context) *model.User {
-	if user, _ := c.Get("user"); user != nil {
-		if u, ok := user.(*model.User); ok {
-			return u
+	if user, _ := c.Get("claims"); user != nil {
+		if u, ok := user.(*util.CustomClaims); ok {
+			if u, err := model.GetUserByName(u.UserName); err == nil {
+				return &u
+			}
 		}
 	}
 	return nil

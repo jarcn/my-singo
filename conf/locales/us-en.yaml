@@ -8,3 +8,7 @@ Field:
   UserName: "UserName"
   Password: "Password"
   PasswordConfirm: "PasswordConfirm"
+Login:
+  Success: "success"
+System:
+  Error: "oops plesase try later !!!"

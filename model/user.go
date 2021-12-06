@@ -33,6 +33,17 @@ func GetUser(ID interface{}) (User, error) {
 	return user, result.Error
 }
 
+// 根据用户名和密码查询用户
+// 前提是用户名不能重复 这里可以改进
+func GetUserByName(usn string) (User, error) {
+	var user User
+	if err := DB.Where("user_name = ?", usn).First(&user).Error; err != nil {
+		return user, err
+	}
+	return user, nil
+
+}
+
 // SetPassword 设置密码
 func (user *User) SetPassword(password string) error {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), PassWordCost)

@@ -19,7 +19,6 @@ func NewRouter() *gin.Engine {
 	// 中间件, 顺序不能改
 	r.Use(middleware.Session(os.Getenv("SESSION_SECRET")))
 	r.Use(middleware.Cors())
-	r.Use(middleware.CurrentUser())
 	r.Use(middleware.LanguageFilter())
 
 	// 接口文档地址
@@ -42,8 +41,7 @@ func NewRouter() *gin.Engine {
 		v1.POST("user/login", api.UserLogin)
 
 		// 需要登录保护的
-		auth := v1.Group("")
-		auth.Use(middleware.AuthRequired())
+		auth := v1.Group("").Use(middleware.JWTAuth())
 		{
 			// User Routing
 			auth.GET("user/me", api.UserMe)
