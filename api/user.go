@@ -1,10 +1,11 @@
 package api
 
 import (
+	"my-singo/cache"
 	"my-singo/serializer"
 	"my-singo/service"
+	"strings"
 
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -65,13 +66,18 @@ func UserMe(c *gin.Context) {
 // @Success 200
 // @Router /user/logout [delete]
 func UserLogout(c *gin.Context) {
-	// todo token 失效问题需要解决, 将token 存入 redis
-	// todo 用户退出登陆时将 token 加入黑名单
-	s := sessions.Default(c)
-	s.Clear()
-	s.Save()
+	// token 失效问题需要解决, 将token 存入 redis
+	// 用户退出登陆时将 token 加入黑名单
+	token := getToken(c)
+	cache.RedisClient.Del(token)
 	c.JSON(200, serializer.Response{
 		Code: 0,
 		Msg:  "登出成功",
 	})
+}
+
+func getToken(c *gin.Context) string {
+	authHeader := c.Request.Header.Get("Authorization")
+	parts := strings.SplitN(authHeader, " ", 2)
+	return parts[1]
 }

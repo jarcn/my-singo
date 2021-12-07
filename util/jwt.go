@@ -25,8 +25,8 @@ func GenToken(user User) (string, error) {
 	claim := CustomClaims{
 		user,
 		jwt.StandardClaims{
-			ExpiresAt: jwt.At(time.Now().Add(time.Minute * 5)), //5分钟后过期
-			Issuer:    "chenjia",                               //签发人
+			ExpiresAt: jwt.At(time.Now().Add(time.Minute * 30)), //30分钟后过期
+			Issuer:    "chenjia",                                //签发人
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)

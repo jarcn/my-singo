@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-// @title 陈佳实验项目
+// @title 实验项目
 // @version 1.0
 // @description 陈佳实验项目接口文档
 // @host localhost:8080

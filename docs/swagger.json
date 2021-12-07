@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "陈佳实验项目接口文档",
-        "title": "陈佳实验项目",
+        "title": "实验项目",
         "contact": {},
         "version": "1.0"
     },

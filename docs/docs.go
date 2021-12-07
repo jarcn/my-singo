@@ -157,7 +157,7 @@ var SwaggerInfo = swaggerInfo{
 	Host:        "localhost:8080",
 	BasePath:    "/api/v1",
 	Schemes:     []string{},
-	Title:       "陈佳实验项目",
+	Title:       "实验项目",
 	Description: "陈佳实验项目接口文档",
 }
 

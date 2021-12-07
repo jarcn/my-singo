@@ -1,12 +1,14 @@
 package service
 
 import (
+	"my-singo/cache"
 	"my-singo/conf"
 	"my-singo/middleware"
 	"my-singo/model"
 	"my-singo/serializer"
 	"my-singo/util"
 	"net/http"
+	"time"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -48,11 +50,15 @@ func (service *UserLoginService) Login(c *gin.Context) serializer.Response {
 	if err != nil {
 		return serializer.Err(serializer.CodeSystemErr, conf.Message(middleware.Language, "System.Error"), nil)
 	}
-	// 设置session
-	// service.setSession(c, user)
+	go saveToken(token)
 	return serializer.Response{
 		Code: http.StatusOK,
 		Data: gin.H{"token": token},
 		Msg:  conf.Message(middleware.Language, "Login.Success"),
 	}
+}
+
+// 保存token 防止 token 泄露无法处理
+func saveToken(token string) {
+	cache.RedisClient.Set(token, token, time.Minute*30)
 }

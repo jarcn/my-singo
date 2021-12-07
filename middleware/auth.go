@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"my-singo/cache"
 	"my-singo/serializer"
 	"my-singo/util"
 	"net/http"
@@ -23,6 +24,13 @@ func JWTAuth() gin.HandlerFunc {
 		//按空格拆分
 		parts := strings.SplitN(authHeader, " ", 2)
 		if !(len(parts) == 2 && parts[0] == "Bearer") {
+			ctx.JSON(http.StatusOK, serializer.CheckLogin())
+			ctx.Abort()
+			return
+		}
+
+		// 判断token是否存在
+		if token := cache.RedisClient.Get(parts[1]); token.Val() == "" {
 			ctx.JSON(http.StatusOK, serializer.CheckLogin())
 			ctx.Abort()
 			return

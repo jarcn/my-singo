@@ -3,7 +3,7 @@ host: localhost:8080
 info:
   contact: {}
   description: 陈佳实验项目接口文档
-  title: 陈佳实验项目
+  title: 实验项目
   version: "1.0"
 paths:
   /ping:
