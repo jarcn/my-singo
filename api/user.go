@@ -70,10 +70,7 @@ func UserLogout(c *gin.Context) {
 	// 用户退出登陆时将 token 加入黑名单
 	token := getToken(c)
 	cache.RedisClient.Del(token)
-	c.JSON(200, serializer.Response{
-		Code: 0,
-		Msg:  "登出成功",
-	})
+	c.JSON(200, serializer.Response{Code: 0, Msg: "登出成功"})
 }
 
 func getToken(c *gin.Context) string {
