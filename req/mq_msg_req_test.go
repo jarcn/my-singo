@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/Shopify/sarama"
@@ -57,4 +59,17 @@ func TestKafkaP(t *testing.T) {
 		fmt.Println("Send message Fail")
 	}
 	fmt.Printf("Partition = %d, offset=%d\n", partition, offset)
+}
+
+func TestHex(t *testing.T) {
+
+	s := "a\r\nb"
+	t.Log("----->>>>", s)
+	shex := fmt.Sprintf("%x", s)
+	t.Log("--->>>", shex)
+	nStr := strings.ReplaceAll(shex, "0d0a", "")
+	t.Log(nStr)
+	v, _ := strconv.Atoi(nStr)
+	t.Log("====>>>>", v)
+
 }
