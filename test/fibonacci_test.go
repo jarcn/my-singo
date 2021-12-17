@@ -2,7 +2,11 @@ package test
 
 import (
 	"errors"
+	"fmt"
+	"runtime"
+	"sync"
 	"testing"
+	"time"
 )
 
 // 1,1,2,3,5,8
@@ -39,4 +43,65 @@ func TestGen(t *testing.T) {
 	} else {
 		t.Log(v)
 	}
+}
+
+func TestSyncPool(t *testing.T) {
+	pool := &sync.Pool{
+		New: func() interface{} {
+			fmt.Println("create a new object")
+			return 100
+		},
+	}
+	v := pool.Get().(int)
+	fmt.Println(v)
+	pool.Put(3)
+	runtime.GC()
+	v1, _ := pool.Get().(int)
+	fmt.Println(v1)
+}
+
+func TestSyncPoolInMultiGroutine(t *testing.T) {
+	pool := &sync.Pool{
+		New: func() interface{} {
+			fmt.Println("create a new object.")
+			return 10
+		},
+	}
+
+	pool.Put(100)
+	pool.Put(100)
+	pool.Put(100)
+
+	var wg sync.WaitGroup
+	for i := 0; i < 5; i++ {
+		wg.Add(1)
+		go func(id int) {
+			fmt.Println(pool.Get())
+			wg.Done()
+		}(i)
+	}
+	wg.Wait()
+}
+
+func doSomething() string {
+	time.Sleep(time.Millisecond * 500)
+	return "done"
+}
+
+func asyncDo() chan string {
+	ret := make(chan string, 1)
+	go func() {
+		ret <- doSomething()
+	}()
+	return ret
+}
+
+func TestSelectTo(t *testing.T) {
+	select {
+	case ret := <-asyncDo():
+		fmt.Println(ret)
+	case <-time.After(time.Millisecond * 100):
+		t.Log("time out")
+	}
+
 }
