@@ -56,7 +56,7 @@ func TestCounterWaitGroup(t *testing.T) {
 }
 
 func TestBase64(t *testing.T) {
-	data := "SB-Mid-server-qgGG6qKkEwylnvYhE44WddNQ"
+	data := "SJDJ5JDEzJDcwQ1J2OVVmOFpnb3NraW1ab2QvUWUxaE5SWHJhTE1aNmFSYlR6NVVnZEE4TGZZWWk5N0k2:"
 	sEnc := base64.StdEncoding.EncodeToString([]byte(data))
 	fmt.Println(sEnc)
 }
