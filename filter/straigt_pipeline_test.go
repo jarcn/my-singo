@@ -8,7 +8,7 @@ func TestFilterPipeline(t *testing.T) {
 	sumFilter := NewSumFilter()
 	//Demo 需要强制作filter添加顺序
 	sp := NewStraigthPipeline("chenjia", splitFilter, toIntFilter, sumFilter)
-	ret, err := sp.Process("1,2,3")
+	ret, err := sp.Process("1,2,3,5")
 	if err != nil {
 		t.Fatal(err)
 	}
